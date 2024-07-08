@@ -28,11 +28,11 @@ Refer to the attached mockup image to guide your UI development 👇
 
 - [x] **Fork this project:** Start by forking this repository
 - [x] **UI Implementation:** Implement the user interface according to the provided design mockup.
-- [ ] **Data Integration:** Utilize the endpoint https://dummyjson.com/users to fetch user data. If no filter is applied all data is displayed.
-- [ ] **Client-side Filtering:** Implement the following filters:
+- [x] **Data Integration:** Utilize the endpoint https://dummyjson.com/users to fetch user data. If no filter is applied all data is displayed.
+- [x] **Client-side Filtering:** Implement the following filters:
     - [x] **Name Filter:** An input field that dynamically filters by `firstName` or `lastName` as you type.
     - [x] **City Filter:** A dropdown that lists all cities present in the data. Users can select a city to filter the list accordingly.
-    - [ ] **Highlight Feature:** A checkbox that when checked, highlights the oldest users within each selected city (use data field `city`)
+    - [x] **Highlight Feature:** A checkbox that when checked, highlights the oldest users within each selected city (use data field `city`)
     - [ ] **Optional:** Implement a 1-second debounce on the Name Filter input. This means the application should delay the filter action until 1 second has passed without any further input from the user. This optimization helps reduce the number of processing calls, enhancing performance.
 - [ ] **Submission:** After completing the challenge, email us the URL of your GitHub repository.
 
@@ -43,3 +43,7 @@ Refer to the attached mockup image to guide your UI development 👇
 
 \
 Happy coding!
+
+### Notes
+
+- [limit and skip users](https://dummyjson.com/docs/users#users-limit_skip)
