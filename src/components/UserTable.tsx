@@ -8,7 +8,12 @@ export default function UserTable({ users }: { users: User[] }) {
 	const [searchParam, setSearchParam] = useState('');
 	const [filterParam, setFilterParam] = useState('');
 	const [highlightOldestPerCity, setHighlightOldest] = useState(false);
+	const citiesOldest: Record<string, number> = {}
 	const filteredUsers = users.filter((user) => {
+		const birthTimestamp = new Date(user.birthDate).getTime()
+		if (!citiesOldest[user.address.city] || birthTimestamp < citiesOldest[user.address.city]) {
+			citiesOldest[user.address.city] = birthTimestamp
+		}
 		if (!searchParam && !filterParam) return true;
 		const matchesFirstName =
 			searchParam &&
@@ -25,7 +30,7 @@ export default function UserTable({ users }: { users: User[] }) {
 
 		if (filterParam)
 			return (
-				user.city === filterParam &&
+				user.address.city === filterParam &&
 				(!searchParam || matchesFirstName || matchesLastName)
 			);
 
@@ -33,8 +38,8 @@ export default function UserTable({ users }: { users: User[] }) {
 	});
 
 	const cities = users.reduce<string[]>((acc, currentUser) => {
-		if (acc.some((city) => city === currentUser.city)) return acc;
-		return [...acc, currentUser.city];
+		if (acc.some((city) => city === currentUser.address.city)) return acc;
+		return [...acc, currentUser.address.city];
 	}, []);
 	return (
 		<div>
@@ -46,7 +51,7 @@ export default function UserTable({ users }: { users: User[] }) {
 				/>
 				<Dropdown
 					label="City"
-					placeholder="Select city"
+					placeholder={filterParam ? "All cities" : "Select city"}
 					options={cities}
 					value={filterParam}
 					onChange={(event) => setFilterParam(event.target.value)}
@@ -59,7 +64,7 @@ export default function UserTable({ users }: { users: User[] }) {
 					}
 				/>
 			</div>
-			<table>
+			<table style={{ width: '100%', marginTop: 10 }}>
 				<thead>
 					<tr>
 						<th>Name</th>
@@ -69,12 +74,12 @@ export default function UserTable({ users }: { users: User[] }) {
 				</thead>
 				<tbody>
 					{filteredUsers.map((user, index) => (
-						<tr key={index}>
+						<tr key={index} style={{ background: highlightOldestPerCity && citiesOldest[user.address.city] >= new Date(user.birthDate).getTime() ? '#646cff' : '' }}>
 							<td>
 								{user.firstName} {user.lastName}
 							</td>
-							<td>{user.city}</td>
-							<td>{user.birthday}</td>
+							<td>{user?.address?.city || '-'}</td>
+							<td>{user.birthDate}</td>
 						</tr>
 					))}
 				</tbody>
