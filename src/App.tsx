@@ -6,7 +6,7 @@ import UserTable from './components/UserTable';
 function App() {
 	const [users, setUsers] = useState([]);
 	async function loadData() {
-		const response = await fetch('https://dummyjson.com/users');
+		const response = await fetch('https://dummyjson.com/users?limit=0');
 		const data = await response.json();
 		setUsers(data.users);
 	}
