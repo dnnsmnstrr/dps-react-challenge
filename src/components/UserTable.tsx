@@ -73,6 +73,9 @@ export default function UserTable({ users }: { users: User[] }) {
 					</tr>
 				</thead>
 				<tbody>
+					{!filteredUsers || !filteredUsers.length && (
+						<tr ><td style={{ paddingTop: 20, opacity: 0.5 }} colSpan={3}>No Results</td></tr>
+					)}
 					{filteredUsers.map((user, index) => (
 						<tr key={index} style={{ background: highlightOldestPerCity && citiesOldest[user.address.city] >= new Date(user.birthDate).getTime() ? '#646cff' : '' }}>
 							<td>
