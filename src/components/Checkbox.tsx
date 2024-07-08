@@ -9,7 +9,7 @@ type CheckboxProps = {
 const Checkbox = ({ label, checked, onChange }: CheckboxProps) => {
 	return (
 		<div >
-			<label style={{ display: 'flex', gap: 10, alignItems: 'center', paddingBottom: 8 }}>
+			<label style={{ display: 'flex', gap: 10, alignItems: 'center', textAlign: 'left', paddingBottom: 8 }}>
 				<span style={{ maxWidth: 140 }}>{label}</span>
 				<input style={{ width: 20 }} type="checkbox" checked={checked} onChange={onChange} />
 			</label>

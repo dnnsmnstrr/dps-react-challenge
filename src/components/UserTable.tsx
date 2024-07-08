@@ -41,9 +41,11 @@ export default function UserTable({ users }: { users: User[] }) {
 		if (acc.some((city) => city === currentUser.address.city)) return acc;
 		return [...acc, currentUser.address.city];
 	}, []);
+
+	const highlightRadius = 8
 	return (
 		<div>
-			<div style={{ display: 'flex', gap: 10, alignItems: 'flex-end' }}>
+			<div style={{ display: 'flex', gap: 20, alignItems: 'flex-end' }}>
 				<SearchField
 					label="Name"
 					value={searchParam}
@@ -64,10 +66,10 @@ export default function UserTable({ users }: { users: User[] }) {
 					}
 				/>
 			</div>
-			<table style={{ width: '100%', marginTop: 10 }}>
+			<table style={{ width: '100%', marginTop: 10, textAlign: 'left', borderCollapse: 'separate', borderSpacing: 0 }}>
 				<thead>
 					<tr>
-						<th>Name</th>
+						<th style={{ paddingLeft: 10 }}>Name</th>
 						<th>City</th>
 						<th>Birthday</th>
 					</tr>
@@ -77,12 +79,14 @@ export default function UserTable({ users }: { users: User[] }) {
 						<tr ><td style={{ paddingTop: 20, opacity: 0.5 }} colSpan={3}>No Results</td></tr>
 					)}
 					{filteredUsers.map((user, index) => (
-						<tr key={index} style={{ background: highlightOldestPerCity && citiesOldest[user.address.city] >= new Date(user.birthDate).getTime() ? '#646cff' : '' }}>
-							<td>
+						<tr key={index} style={{ background: highlightOldestPerCity && citiesOldest[user.address.city] >= new Date(user.birthDate).getTime() ? '#646cff' : '', padding: 20, borderRadius: 10, overflow: 'hidden' }}>
+							<td style={{ paddingLeft: 10, borderTopLeftRadius: highlightRadius, borderBottomLeftRadius: highlightRadius, width: 249 }}>
 								{user.firstName} {user.lastName}
 							</td>
-							<td>{user?.address?.city || '-'}</td>
-							<td>{user.birthDate}</td>
+							<td style={{ minWidth: 120 }}>{user?.address?.city || '-'}</td>
+							<td style={{ borderTopRightRadius: highlightRadius, borderBottomRightRadius: highlightRadius, width: 168 }}>
+								{user.birthDate}
+							</td>
 						</tr>
 					))}
 				</tbody>
