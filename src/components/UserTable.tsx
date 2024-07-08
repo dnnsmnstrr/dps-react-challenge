@@ -47,7 +47,7 @@ export default function UserTable({ users }: { users: User[] }) {
 				<SearchField
 					label="Name"
 					value={searchParam}
-					onChange={(event) => setSearchParam(event.target.value)}
+					onChange={setSearchParam}
 				/>
 				<Dropdown
 					label="City"
