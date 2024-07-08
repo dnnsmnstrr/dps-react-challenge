@@ -10,26 +10,26 @@ export default function UserTable({ users }: { users: User[] }) {
 	const [highlightOldestPerCity, setHighlightOldest] = useState(false);
 	const filteredUsers = users.filter((user) => {
 		if (!searchParam && !filterParam) return true;
-		if (
+		const matchesFirstName =
 			searchParam &&
 			user.firstName &&
 			user.firstName
 				.toLocaleLowerCase()
-				.includes(searchParam.toLocaleLowerCase())
-		)
-			return true;
-		if (
+				.includes(searchParam.toLocaleLowerCase());
+		const matchesLastName =
 			searchParam &&
 			user.lastName &&
 			user.lastName
 				.toLocaleLowerCase()
-				.includes(searchParam.toLocaleLowerCase())
-		)
-			return true;
+				.includes(searchParam.toLocaleLowerCase());
 
-		if (filterParam && user.city && user.city === filterParam) return true;
+		if (filterParam)
+			return (
+				user.city === filterParam &&
+				(!searchParam || matchesFirstName || matchesLastName)
+			);
 
-		return false;
+		return matchesFirstName || matchesLastName;
 	});
 
 	const cities = users.reduce<string[]>((acc, currentUser) => {
