@@ -1,6 +1,9 @@
 export type User = {
   firstName: string
   lastName: string
-  city: string
-  birthday: string
+  birthDate: string
+  age: number
+  address: {
+    city: string
+  }
 }
