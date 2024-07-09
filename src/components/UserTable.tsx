@@ -30,14 +30,21 @@ export default function UserTable({ users }: { users: User[] }) {
 			user.lastName
 				.toLocaleLowerCase()
 				.includes(searchParam.toLocaleLowerCase());
+		const matchesFullName =
+			searchParam &&
+			user.firstName &&
+			user.lastName &&
+			(user.firstName + ' ' + user.lastName)
+				.toLocaleLowerCase()
+				.includes(searchParam.toLocaleLowerCase());
 
 		if (filterParam)
 			return (
 				user.address.city === filterParam &&
-				(!searchParam || matchesFirstName || matchesLastName)
+				(!searchParam || matchesFirstName || matchesLastName || matchesFullName)
 			);
 
-		return matchesFirstName || matchesLastName;
+		return matchesFirstName || matchesLastName || matchesFullName;
 	});
 
 	const cities = users.reduce<string[]>((acc, currentUser) => {
@@ -150,7 +157,7 @@ export default function UserTable({ users }: { users: User[] }) {
 								}}
 								title={user.age + ' years old'}
 							>
-								{user.birthDate}
+								{new Date(user.birthDate).toLocaleDateString()}
 							</td>
 						</tr>
 					))}
