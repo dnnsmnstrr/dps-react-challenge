@@ -107,7 +107,10 @@ textarea:focus {
 	a:hover {
 		color: #747bff;
 	}
-	button {
+	button,
+	input,
+	textarea,
+	select {
 		background-color: #f9f9f9;
 	}
 }

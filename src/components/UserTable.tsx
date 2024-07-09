@@ -51,6 +51,7 @@ export default function UserTable({ users }: { users: User[] }) {
 			<div style={{ display: 'flex', gap: 20, alignItems: 'flex-end' }}>
 				<SearchField
 					label="Name"
+					placeholder="Search name"
 					value={searchParam}
 					onChange={setSearchParam}
 				/>
@@ -90,7 +91,11 @@ export default function UserTable({ users }: { users: User[] }) {
 						(!filteredUsers.length && (
 							<tr>
 								<td
-									style={{ paddingTop: 20, opacity: 0.5, textAlign: 'center' }}
+									style={{
+										paddingTop: 20,
+										opacity: 0.5,
+										textAlign: 'center',
+									}}
 									colSpan={3}
 								>
 									No Results
@@ -140,7 +145,11 @@ export default function UserTable({ users }: { users: User[] }) {
 					{!!(filteredUsers && filteredUsers.length) && (
 						<tr>
 							<td
-								style={{ paddingTop: 20, opacity: 0.5, textAlign: 'center' }}
+								style={{
+									paddingTop: 20,
+									opacity: 0.5,
+									textAlign: 'center',
+								}}
 								colSpan={3}
 							>
 								{filteredUsers.length} Result
