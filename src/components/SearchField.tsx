@@ -31,7 +31,7 @@ const SearchField = ({
 		setInputValue(event.target.value);
 	};
 	return (
-		<div>
+		<div style={{ minWidth: 100 }}>
 			<label
 				style={{
 					display: 'flex',

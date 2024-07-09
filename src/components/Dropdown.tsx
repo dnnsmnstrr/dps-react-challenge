@@ -15,12 +15,27 @@ const Dropdown = ({
 	value,
 	onChange,
 }: DropdownProps) => {
+	const isDarkMode =
+		window.matchMedia &&
+		window.matchMedia('(prefers-color-scheme: dark)').matches;
+	const baseColor = isDarkMode ? '#FFFFFF' : '#000000';
 	return (
 		<div>
-			<label style={{ display: 'flex', flexDirection: 'column', alignItems: 'start', minWidth: 200 }}>
+			<label
+				style={{
+					display: 'flex',
+					flexDirection: 'column',
+					alignItems: 'start',
+					minWidth: 200,
+				}}
+			>
 				{label}
-				<select value={value} onChange={onChange}>
-					<option value="">{placeholder || ('Select ' + label)}</option>
+				<select
+					value={value}
+					onChange={onChange}
+					style={{ color: !value ? baseColor + (isDarkMode ? '66' : '99') : baseColor }}
+				>
+					<option value="">{placeholder || 'Select ' + label}</option>
 					{options.map((option, index) => (
 						<option key={index} value={option}>
 							{option}

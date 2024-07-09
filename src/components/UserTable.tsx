@@ -45,6 +45,9 @@ export default function UserTable({ users }: { users: User[] }) {
 		return [...acc, currentUser.address.city];
 	}, []);
 
+	const isDarkMode =
+		window.matchMedia &&
+		window.matchMedia('(prefers-color-scheme: dark)').matches;
 	const highlightRadius = 8;
 	return (
 		<div>
@@ -81,7 +84,7 @@ export default function UserTable({ users }: { users: User[] }) {
 			>
 				<thead>
 					<tr>
-						<th style={{ paddingLeft: 10 }}>Name</th>
+						<th style={{ paddingLeft: 20 }}>Name</th>
 						<th>City</th>
 						<th>Birthday</th>
 					</tr>
@@ -112,14 +115,23 @@ export default function UserTable({ users }: { users: User[] }) {
 										new Date(user.birthDate).getTime()
 										? '#646cff'
 										: '',
-								padding: 20,
+								color:
+									isDarkMode ||
+									(!isDarkMode &&
+										highlightOldestPerCity &&
+										citiesOldest[user.address.city] >=
+											new Date(user.birthDate).getTime())
+										? 'rgba(255, 255, 255, 0.87)'
+										: '#213547',
 								borderRadius: 10,
 								overflow: 'hidden',
 							}}
 						>
 							<td
 								style={{
-									paddingLeft: 10,
+									paddingTop: 10,
+									paddingBottom: 10,
+									paddingLeft: 20,
 									borderTopLeftRadius: highlightRadius,
 									borderBottomLeftRadius: highlightRadius,
 									width: 249,
