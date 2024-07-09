@@ -47,3 +47,18 @@ Happy coding!
 ### Notes
 
 - [limit and skip users](https://dummyjson.com/docs/users#users-limit_skip)
+- light mode inputs dark background / highlighted row text color
+- format birthday
+- total count below table
+- full name search
+
+### Ideas
+
+- [x] "No Result" Placeholder
+- [x] Change dropdown placeholder to "Reset" when filter is active
+- [x] Improve layout with card background
+- [ ] Loading state
+- [ ] Pagination
+- [ ] [Sorting](https://dummyjson.com/docs/users#users-sort)
+- [ ] Responsive layout
+- [x] Deployment - https://dps-react-challenge.vercel.app/

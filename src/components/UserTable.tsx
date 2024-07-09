@@ -8,11 +8,14 @@ export default function UserTable({ users }: { users: User[] }) {
 	const [searchParam, setSearchParam] = useState('');
 	const [filterParam, setFilterParam] = useState('');
 	const [highlightOldestPerCity, setHighlightOldest] = useState(false);
-	const citiesOldest: Record<string, number> = {}
+	const citiesOldest: Record<string, number> = {};
 	const filteredUsers = users.filter((user) => {
-		const birthTimestamp = new Date(user.birthDate).getTime()
-		if (!citiesOldest[user.address.city] || birthTimestamp < citiesOldest[user.address.city]) {
-			citiesOldest[user.address.city] = birthTimestamp
+		const birthTimestamp = new Date(user.birthDate).getTime();
+		if (
+			!citiesOldest[user.address.city] ||
+			birthTimestamp < citiesOldest[user.address.city]
+		) {
+			citiesOldest[user.address.city] = birthTimestamp;
 		}
 		if (!searchParam && !filterParam) return true;
 		const matchesFirstName =
@@ -42,7 +45,7 @@ export default function UserTable({ users }: { users: User[] }) {
 		return [...acc, currentUser.address.city];
 	}, []);
 
-	const highlightRadius = 8
+	const highlightRadius = 8;
 	return (
 		<div>
 			<div style={{ display: 'flex', gap: 20, alignItems: 'flex-end' }}>
@@ -53,7 +56,7 @@ export default function UserTable({ users }: { users: User[] }) {
 				/>
 				<Dropdown
 					label="City"
-					placeholder={filterParam ? "All cities" : "Select city"}
+					placeholder={filterParam ? 'All cities' : 'Select city'}
 					options={cities}
 					value={filterParam}
 					onChange={(event) => setFilterParam(event.target.value)}
@@ -66,7 +69,15 @@ export default function UserTable({ users }: { users: User[] }) {
 					}
 				/>
 			</div>
-			<table style={{ width: '100%', marginTop: 10, textAlign: 'left', borderCollapse: 'separate', borderSpacing: 0 }}>
+			<table
+				style={{
+					width: '100%',
+					marginTop: 10,
+					textAlign: 'left',
+					borderCollapse: 'separate',
+					borderSpacing: '0 10px',
+				}}
+			>
 				<thead>
 					<tr>
 						<th style={{ paddingLeft: 10 }}>Name</th>
@@ -75,20 +86,68 @@ export default function UserTable({ users }: { users: User[] }) {
 					</tr>
 				</thead>
 				<tbody>
-					{!filteredUsers || !filteredUsers.length && (
-						<tr ><td style={{ paddingTop: 20, opacity: 0.5 }} colSpan={3}>No Results</td></tr>
-					)}
+					{!filteredUsers ||
+						(!filteredUsers.length && (
+							<tr>
+								<td
+									style={{ paddingTop: 20, opacity: 0.5, textAlign: 'center' }}
+									colSpan={3}
+								>
+									No Results
+								</td>
+							</tr>
+						))}
 					{filteredUsers.map((user, index) => (
-						<tr key={index} style={{ background: highlightOldestPerCity && citiesOldest[user.address.city] >= new Date(user.birthDate).getTime() ? '#646cff' : '', padding: 20, borderRadius: 10, overflow: 'hidden' }}>
-							<td style={{ paddingLeft: 10, borderTopLeftRadius: highlightRadius, borderBottomLeftRadius: highlightRadius, width: 249 }}>
+						<tr
+							key={index}
+							style={{
+								background:
+									highlightOldestPerCity &&
+									citiesOldest[user.address.city] >=
+										new Date(user.birthDate).getTime()
+										? '#646cff'
+										: '',
+								padding: 20,
+								borderRadius: 10,
+								overflow: 'hidden',
+							}}
+						>
+							<td
+								style={{
+									paddingLeft: 10,
+									borderTopLeftRadius: highlightRadius,
+									borderBottomLeftRadius: highlightRadius,
+									width: 249,
+								}}
+							>
 								{user.firstName} {user.lastName}
 							</td>
-							<td style={{ minWidth: 120 }}>{user?.address?.city || '-'}</td>
-							<td style={{ borderTopRightRadius: highlightRadius, borderBottomRightRadius: highlightRadius, width: 168 }}>
+							<td style={{ minWidth: 120 }}>
+								{user?.address?.city || '-'}
+							</td>
+							<td
+								style={{
+									borderTopRightRadius: highlightRadius,
+									borderBottomRightRadius: highlightRadius,
+									width: 168,
+								}}
+								title={user.age + ' years old'}
+							>
 								{user.birthDate}
 							</td>
 						</tr>
 					))}
+					{!!(filteredUsers && filteredUsers.length) && (
+						<tr>
+							<td
+								style={{ paddingTop: 20, opacity: 0.5, textAlign: 'center' }}
+								colSpan={3}
+							>
+								{filteredUsers.length} Result
+								{filteredUsers.length === 1 ? '' : 's'}
+							</td>
+						</tr>
+					)}
 				</tbody>
 			</table>
 		</div>

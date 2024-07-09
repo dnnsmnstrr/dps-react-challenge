@@ -6,8 +6,10 @@
 }
 
 .logo {
-	height: 6em;
+	height: 5em;
 	padding: 1.5em;
+	padding-bottom: 2em;
+	filter: drop-shadow(0 0 2em #646cff33);
 	will-change: filter;
 	transition: filter 300ms;
 }
@@ -45,6 +47,7 @@
 	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
 	overflow: hidden;
 	padding: 36px;
+	padding-bottom: 16px;
 	transition: transform 0.3s, box-shadow 0.3s;
 	min-height: 150px;
 }
